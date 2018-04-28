@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="author" content="Yauheni Pakala" />
+    <title>CryGen</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        textarea {
+            display: block;
+            width: 100%;
+        }
+        table {
+            width: 100%;
+        }
+        #wrapper {
+            padding: 10px;
+        }
+        #encryptBtn, #decryptBtn {
+            display: block;
+            width: 100%;
+            height: 38px;
+        }
+        @media (min-width: 992px) {
+            #wrapper {
+                max-width: 600px;
+            }
+            #publicKeyView, #friendPublicKeyView {
+                height: 100px;
+            }
+        }
+    </style>
+    <link rel="manifest" href="./manifest.json">
+</head>
+<body>
+
+    <div id="wrapper">
+        <label for="publicKeyView">Your public key (share to friend):</label>
+        <textarea id="publicKeyView" rows="4" readonly="readonly"></textarea>
+
+        <label for="friendPublicKeyView">Your friend's public key:</label>
+        <textarea id="friendPublicKeyView" rows="4"></textarea>
+
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <td colspan="2">
+                    <label for="inputView">Input:</label>
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="2">
+                    <textarea id="inputView" rows="5"></textarea>
+                </td>
+                <td><input type="button" id="encryptBtn" value="Encrypt"/></td>
+            </tr>
+            <tr>
+                <td><input type="button" id="decryptBtn" value="Decrypt"/></td>
+            </tr>
+        </table>
+
+        <label for="outputView">Output:</label>
+        <textarea id="outputView" rows="4" readonly="readonly"></textarea>
+    </div>
+
+<script src="js/jsencrypt.js"></script>
+<script>
+
+(function (){
+
+    var publicKeyView = document.querySelector('#publicKeyView');
+    var friendPublicKeyView = document.querySelector('#friendPublicKeyView');
+    var inputView = document.querySelector('#inputView');
+    var outputView = document.querySelector('#outputView');
+    var encryptBtn = document.querySelector('#encryptBtn');
+    var decryptBtn = document.querySelector('#decryptBtn');
+
+    var app = function () {
+        var generator = new JSEncrypt({default_key_size: 1024});
+        var privateKey = generator.getPrivateKey();
+        var publicKey = generator.getPublicKey();
+
+        return {
+            publicKey: publicKey,
+            encrypt: function (_publicKey, _message) {
+                var _encryptor = new JSEncrypt();
+                _encryptor.setPublicKey(_publicKey);
+                return _encryptor.encrypt(_message);
+            },
+            decrypt: function (_encyptedMessage) {
+                var _decryptor = new JSEncrypt();
+                _decryptor.setPrivateKey(privateKey);
+                return _decryptor.decrypt(_encyptedMessage);
+            }
+        };
+    }
+
+    var app = app();
+
+    publicKeyView.textContent = app.publicKey;
+
+    encryptBtn.onclick = function () {
+        outputView.textContent = app.encrypt(friendPublicKeyView.value.trim(), inputView.value.trim());
+    };
+
+    decryptBtn.onclick = function () {
+        outputView.textContent = app.decrypt(inputView.value.trim());
+    };
+
+}());
+
+</script>
+</body>
+</html>
