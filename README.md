@@ -6,12 +6,11 @@ Simple tool for encryption data with RSA
 ## Features
 
 - Sources is full open
-- Only memory storage
-- Only one session
+- In-memory data storage
+- One private key per session
 - 1024 RSA (https://github.com/travist/jsencrypt)
 - PWA ready (https://wcoder.github.io/crygen/)
-- Self-hosting available (https://github.com/wcoder/crygen/archive/master.zip)
-- Independent provider of encryption your data
+- Independence and self-hosting available (https://github.com/wcoder/crygen/archive/master.zip)
 - Fully manual
 
 ## How to use
