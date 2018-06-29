@@ -11,6 +11,7 @@ Simple tool for encryption data with RSA
 - 1024 RSA (https://github.com/travist/jsencrypt)
 - PWA ready (https://wcoder.github.io/crygen/)
 - Independence and self-hosting available (https://github.com/wcoder/crygen/archive/master.zip)
+- Independence from providers/channels of data-transferring
 - Fully manual
 
 ## How to use
