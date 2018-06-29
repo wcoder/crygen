@@ -1,6 +1,8 @@
 {
+    "name": "Encrypted Messages Generator",
     "short_name": "CryGen",
-    "name": "Crypto Generator",
+    "start_url": "index.html?launcher=true",
+    "display": "standalone",
     "icons": [
       {
         "src": "launcher-icon-1x.png",
@@ -17,6 +19,5 @@
         "type": "image/png",
         "sizes": "192x192"
       }
-    ],
-    "start_url": "index.html?launcher=true"
+    ], 
   }
